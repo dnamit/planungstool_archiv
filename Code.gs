@@ -20,12 +20,14 @@ function copyRange() {
   
  var ss = sss.getSheetByName('Projektplanung'); //replace with source Sheet tab name
  var ss2 = sss.getActiveSheet();
+ var sss2 = SpreadsheetApp.openById('1kNQIwcuAJY2KvOL0NQZp3IxuyUMZZjYZNWCPPsHkyr0');
+ var ss3 = sss2.getSheetByName('1');
   
  // Konstanten
   
   // Abstand von Zelle A bis letzte Zeile der Projekt Metadaten (alles bis zum Zeitstrahl)
   
-  var PROJECT_DATA = 13;
+  var PROJECT_DATA = 12;
   var PROJECT_META_RANGE = 3;
   
   // Auswahl der aktiven Range 
@@ -60,7 +62,7 @@ function copyRange() {
     
     
     // Beginn For-Schleife, die alle Spalten durchgeht
-    for(c=3;c<last_col;c++){
+    for(c=PROJECT_DATA;c<last_col;c++){
      
       // Abfrage, wenn Wert in Array hinterlegt ist wird Zeile (r) und Spalte (c) der Daten Matrix gespeichert.
       if(data[r][c] != ""){
@@ -71,7 +73,7 @@ function copyRange() {
     
         var rowContents = [data[r][0],data[r][1],data[r][2],time_date,data[r][c]];
     
-        ss2.appendRow(rowContents);
+        ss3.appendRow(rowContents);
         
         
         
