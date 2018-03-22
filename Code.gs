@@ -65,7 +65,7 @@ function archiveRange() {
     // Beginn For-Schleife, die alle Spalten durchgeht
     for(c=PROJECT_DATA;c<last_col;c++){
      
-      // Abfrage, wenn Wert in Array hinterlegt ist wird Zeile (r) und Spalte (c) der Daten Matrix gespeichert.
+      // Wenn Stunden im Zeitstrahl eingetragen sind wird eine neue Zeile im Archivdokument angelegt
       if(data[r][c] != ""){
                     
       
