@@ -3,15 +3,15 @@ function onOpen() {
   
  var ui = SpreadsheetApp.getUi();
   ui.createMenu('Planungstool')
-  .addItem('Archive Project', 'copyRange')
-  .addItem('Testi', 'test')
+  .addItem('Archive Project', 'archiveRange')
   .addToUi();
   
   
 } 
 
+// Neues Archivierungsskript
 
-function copyRange() {
+function archiveRange() {
  
   // Zuweisung aktuelles Spreadsheet  
  var sss = SpreadsheetApp.getActiveSpreadsheet();
@@ -28,7 +28,7 @@ function copyRange() {
   // Abstand von Zelle A bis letzte Zeile der Projekt Metadaten (alles bis zum Zeitstrahl)
   
   var PROJECT_DATA = 12;
-  var PROJECT_META_RANGE = 3;
+  var DATE_ROW = 3;
   
   // Auswahl der aktiven Range 
  var range = sss.getActiveRange();
@@ -48,6 +48,7 @@ function copyRange() {
  
  // Alle Daten werden in 2D Array eingetragen (mit Lücken)
  var data = range.getValues();
+ var month_name = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
  
  // Deklaration Array für Index zwischenspeicher 
   var time_index = [];
@@ -66,13 +67,24 @@ function copyRange() {
      
       // Abfrage, wenn Wert in Array hinterlegt ist wird Zeile (r) und Spalte (c) der Daten Matrix gespeichert.
       if(data[r][c] != ""){
-         
-        time_index.push([r, c, data[r][c]]); 
+                    
+      
+        var pnumber = data[r][0];
+        var brand = data[r][1];
+        var project = data[r][2];
+        var phase = data[r][3];
+        var po = data[r][4];
+        var guild = data[r][5];
+        var person = data[r][6];
+        var task = data[r][7];
+        var sold = data[r][10];
+        var time_date = ss2.getRange(DATE_ROW,1+PROJECT_DATA+c).getCell(1,1).getValue();
+        var time_year = time_date.getYear();
+        var time_month = month_name[time_date.getMonth()] + " " + time_year;
+        var dailyhours = data[r][c];
         
-        var time_date = ss2.getRange(13,1+c).getCell(1,1).getValue();
-    
-        var rowContents = [data[r][0],data[r][1],data[r][2],time_date,data[r][c]];
-    
+        var rowContents = [pnumber,brand,project,phase,po,guild,person,task,sold,time_month,time_year,time_date,dailyhours];
+        
         ss3.appendRow(rowContents);
         
         
